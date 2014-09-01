@@ -34,7 +34,7 @@
  */
 
 //    Portions:
-//    uniCenta oPOS  - Touch Friendly Point Of Sale
+//    PDS oPos  - Touch Friendly Point Of Sale
 //    Copyright (c) 2009-2014 uniCenta
 //    http://www.unicenta.com
 //    author adrian romero
