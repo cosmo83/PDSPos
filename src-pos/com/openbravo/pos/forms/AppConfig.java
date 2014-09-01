@@ -247,7 +247,7 @@ public class AppConfig implements AppProperties {
         m_propsconfig.setProperty("payment.commercepassword", "password");
         
         m_propsconfig.setProperty("machine.printername", "(Default)");
-
+        
         // Receipt printer paper set to 72mmx200mm
 
 // JG 7 May 14 Epson ESC/POS settings
@@ -269,6 +269,9 @@ public class AppConfig implements AppProperties {
 
         m_propsconfig.setProperty("machine.uniqueinstance", "false");
         
-
+        // Added by Phani to set the default configuration
+        m_propsconfig.setProperty("till.autoLogoff", "true");
+        m_propsconfig.setProperty("machine.screenmode", "fullscreen");
+        
     }
 }

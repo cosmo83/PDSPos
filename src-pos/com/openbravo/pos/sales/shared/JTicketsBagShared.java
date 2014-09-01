@@ -97,6 +97,7 @@ public class JTicketsBagShared extends JTicketsBag {
     public void deleteTicket() {   
 
         m_sCurrentTicket = null;
+        
         selectValidTicket();      
     }
     

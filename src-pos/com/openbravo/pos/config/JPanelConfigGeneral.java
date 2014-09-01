@@ -284,6 +284,11 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
         jcboMachineScreenmode.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jcboMachineScreenmode.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jcboMachineScreenmode.setPreferredSize(new java.awt.Dimension(200, 30));
+        jcboMachineScreenmode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcboMachineScreenmodeActionPerformed(evt);
+            }
+        });
 
         jcboTicketsBag.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jcboTicketsBag.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -370,7 +375,7 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(60, 63, 40, 23);
+        jButton1.setBounds(60, 63, 40, 27);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -469,6 +474,10 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
     private void jchkHideInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchkHideInfoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jchkHideInfoActionPerformed
+
+    private void jcboMachineScreenmodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcboMachineScreenmodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcboMachineScreenmodeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

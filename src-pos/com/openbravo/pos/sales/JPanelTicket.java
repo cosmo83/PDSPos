@@ -213,10 +213,10 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         }
 //      JG 19 Feb 14 unnecessary parse - if (Boolean.valueOf(m_App.getProperties().getProperty("till.amountattop")).booleanValue()){
         if (Boolean.valueOf(m_App.getProperties().getProperty("till.amountattop"))){
-            m_jPanEntries.remove(jPanel9);
-            m_jPanEntries.remove(m_jNumberKeys);        
-            m_jPanEntries.add(jPanel9);
-            m_jPanEntries.add(m_jNumberKeys);
+            //m_jPanEntries.remove(jPanel9);
+            //m_jPanEntries.remove(m_jNumberKeys);        
+            //m_jPanEntries.add(jPanel9);
+            //m_jPanEntries.add(m_jNumberKeys);
         }        
  
 //      JG 19 Feb 14 unnecessary parse -  jbtnMooring.setVisible(Boolean.valueOf(m_App.getProperties().getProperty("till.marineoption")).booleanValue());
@@ -225,7 +225,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         priceWith00 = ("true".equals(m_App.getProperties().getProperty("till.pricewith00")));
         if (priceWith00) {
             // use '00' instead of '.'
-            m_jNumberKeys.dotIs00(true);
+            //m_jNumberKeys.dotIs00(true);
         }
            
         m_ticketsbag = getJTicketsBag();
@@ -345,7 +345,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         paymentdialogrefund.init(m_App);
         
         // impuestos incluidos seleccionado ?
-        m_jaddtax.setSelected("true".equals(m_jbtnconfig.getProperty("taxesincluded")));
+        //m_jaddtax.setSelected("true".equals(m_jbtnconfig.getProperty("taxesincluded")));
 
 // JG May 2013 use Diamond inference
         java.util.List<TaxInfo> taxlist = senttax.list();
@@ -354,13 +354,15 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         taxcategoriescollection = new ListKeyed<>(taxcategorieslist);
         
         taxcategoriesmodel = new ComboBoxValModel(taxcategorieslist);
-        m_jTax.setModel(taxcategoriesmodel);
+        //m_jTax.setModel(taxcategoriesmodel);
 
         String taxesid = m_jbtnconfig.getProperty("taxcategoryid");
         if (taxesid == null) {
+            /*
             if (m_jTax.getItemCount() > 0) {
                 m_jTax.setSelectedIndex(0);
             }
+            */
         } else {
             taxcategoriesmodel.setSelectedKey(taxesid);
         }              
@@ -370,23 +372,23 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         
 // Added JDL change the startup state of addtax button
 // JG 19 Feb 14 unnecessary parse -  m_jaddtax.setSelected((Boolean.valueOf(m_App.getProperties().getProperty("till.taxincluded")).booleanValue()));          
-          m_jaddtax.setSelected((Boolean.parseBoolean(m_App.getProperties().getProperty("till.taxincluded"))));  
+          //m_jaddtax.setSelected((Boolean.parseBoolean(m_App.getProperties().getProperty("till.taxincluded"))));  
            
 
         // Show taxes options
         if (m_App.getAppUserView().getUser().hasPermission("sales.ChangeTaxOptions")) {
-            m_jTax.setVisible(true);
-            m_jaddtax.setVisible(true);
+            //m_jTax.setVisible(true);
+            //m_jaddtax.setVisible(true);
         } else {
-            m_jTax.setVisible(false);
-            m_jaddtax.setVisible(false);
+            //m_jTax.setVisible(false);
+            //m_jaddtax.setVisible(false);
         }
 
         // Authorization for buttons
         btnSplit.setEnabled(m_App.getAppUserView().getUser().hasPermission("sales.Total"));
-        m_jDelete.setEnabled(m_App.getAppUserView().getUser().hasPermission("sales.EditLines"));
-        m_jNumberKeys.setMinusEnabled(m_App.getAppUserView().getUser().hasPermission("sales.EditLines"));
-        m_jNumberKeys.setEqualsEnabled(m_App.getAppUserView().getUser().hasPermission("sales.Total"));
+        //m_jDelete.setEnabled(m_App.getAppUserView().getUser().hasPermission("sales.EditLines"));
+        //m_jNumberKeys.setMinusEnabled(m_App.getAppUserView().getUser().hasPermission("sales.EditLines"));
+        //m_jNumberKeys.setEqualsEnabled(m_App.getAppUserView().getUser().hasPermission("sales.Total"));
         m_jbtnconfig.setPermissions(m_App.getAppUserView().getUser());  
                
         m_ticketsbag.activate();  
@@ -493,6 +495,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         }else{
             j_btnKitchenPrt.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.PrintKitchen")); 
          }
+        j_btnKitchenPrt.setVisible(false); 
         refreshTicket();               
     }
     
@@ -527,8 +530,8 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         } else {
             if (m_oTicket.getTicketType() == TicketInfo.RECEIPT_REFUND) {
                 //Make disable Search and Edit Buttons
-                m_jEditLine.setVisible(false);
-                m_jList.setVisible(false);
+               // m_jEditLine.setVisible(false);
+                //m_jList.setVisible(false);
             }
             
             // Refresh ticket taxes
@@ -553,11 +556,11 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
             resetSouthComponent();
             
             // activo el tecleador...
-            m_jKeyFactory.setText(null);       
+            //m_jKeyFactory.setText(null);       
             java.awt.EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    m_jKeyFactory.requestFocus();
+                    //m_jKeyFactory.requestFocus();
                 }
             });
         }
@@ -603,9 +606,9 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         
         if (oProduct.isVprice()){
             TaxInfo tax = taxeslogic.getTaxInfo(oProduct.getTaxCategoryID(), m_oTicket.getCustomer());
-            if (m_jaddtax.isSelected()) {
-                dPrice /= (1 + tax.getRate());
-            }
+            //if (m_jaddtax.isSelected()) {
+            //    dPrice /= (1 + tax.getRate());
+            //}
                 addTicketLine(new TicketLineInfo(oProduct, dMul, dPrice, tax, (java.util.Properties) (oProduct.getProperties().clone())));
         } else {        
                 TaxInfo tax = taxeslogic.getTaxInfo(oProduct.getTaxCategoryID(), m_oTicket.getCustomer());
@@ -725,6 +728,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
     }
     
     private double includeTaxes(String tcid, double dValue) {
+        /*
         if (m_jaddtax.isSelected()) {
             TaxInfo tax = taxeslogic.getTaxInfo(tcid, m_oTicket.getCustomer());
             double dTaxRate = tax == null ? 0.0 : tax.getRate();           
@@ -732,6 +736,8 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         } else {
             return dValue;
         }
+        */
+        return dValue;
     }
     
    private double excludeTaxes(String tcid, double dValue) {
@@ -745,7 +751,8 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         try {
            // Double ret = Double.parseDouble(m_jPrice.getText());
            // return priceWith00 ? ret / 100 : ret;
-            return Double.parseDouble(m_jPrice.getText());
+            //return Double.parseDouble(m_jPrice.getText());
+            return 0.0;
         } catch (NumberFormatException e){
             return 0.0;
         }
@@ -753,7 +760,8 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
 
     private double getPorValue() {
         try {
-            return Double.parseDouble(m_jPor.getText().substring(1));                
+            //return Double.parseDouble(m_jPor.getText().substring(1));                
+            return 1.0;
 // JG May 2013 replaced with Multicatch
         } catch (NumberFormatException | StringIndexOutOfBoundsException e){
             return 1.0;
@@ -761,8 +769,8 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
     }
     
     private void stateToZero(){
-        m_jPor.setText("");
-        m_jPrice.setText("");
+        //m_jPor.setText("");
+        //m_jPrice.setText("");
         m_sBarcode = new StringBuffer();
             
         m_iNumberStatus = NUMBER_INPUTZERO;
@@ -799,13 +807,16 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
                 stateToZero();
             } else {
                 // Se anade directamente una unidad con el precio y todo
+                /*
                 if (m_jaddtax.isSelected()) {
                     // debemos quitarle los impuestos ya que el precio es con iva incluido...
                     TaxInfo tax = taxeslogic.getTaxInfo(oProduct.getTaxCategoryID(), m_oTicket.getCustomer());
                     addTicketLine(oProduct, 1.0, dPriceSell / (1.0 + tax.getRate()));
                 } else {
                     addTicketLine(oProduct, 1.0, dPriceSell);
-                }                
+                } 
+                */
+                addTicketLine(oProduct, 1.0, dPriceSell);
             }
         } catch (BasicException eData) {
             stateToZero();
@@ -869,428 +880,6 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         }       
     }
     
-    @SuppressWarnings("empty-statement")
-    private void stateTransition(char cTrans) {
-
-        if ((cTrans == '\n') || (cTrans == '?')) {
-            // Codigo de barras introducido
-            if (m_sBarcode.length() > 0) { 
-// added JDL 23.05.13                 
-                String sCode = m_sBarcode.toString();
- // added JDL 23.05.13 if stirng is longer than 10 remove the
- //               if ((sCode.length() > 10) && priceWith00) {
- //                   sCode = sCode.replace(".","");
- //                   }
-                if (sCode.startsWith("c")) {
-                    // barcode of a customers card
-                    try {
-                        CustomerInfoExt newcustomer = dlSales.findCustomerExt(sCode);
-                        if (newcustomer == null) {
-                            Toolkit.getDefaultToolkit().beep();                   
-                            new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.nocustomer")).show(this);           
-                        } else {
-                            m_oTicket.setCustomer(newcustomer);
-                            m_jTicketId.setText(m_oTicket.getName(m_oTicketExt));
-                        }
-                    } catch (BasicException e) {
-                        Toolkit.getDefaultToolkit().beep();                   
-                        new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.nocustomer"), e).show(this);           
-                    }
-                    stateToZero();
-                } else if (sCode.startsWith(";")){
-                                                        
-                   
-                   stateToZero();
-                /*  commented out by janar153 @ 24.12.2013 to add scale barcode support  
-                    }else if (sCode.length() == 13 && sCode.startsWith("250")) {
-                    // barcode of the other machine
-                    ProductInfoExt oProduct = new ProductInfoExt(); // Es un ticket
-                    oProduct.setReference(null); // para que no se grabe
-                    oProduct.setCode(sCode);
-                    oProduct.setName("Ticket " + sCode.substring(3, 7));
-                    oProduct.setPriceSell(Double.parseDouble(sCode.substring(7, 12)) / 100);   
-                    oProduct.setTaxCategoryID(((TaxCategoryInfo) taxcategoriesmodel.getSelectedItem()).getID());
-                    // Se anade directamente una unidad con el precio y todo
-                    addTicketLine(oProduct, 1.0, includeTaxes(oProduct.getTaxCategoryID(), oProduct.getPriceSell()));
-                } else if (sCode.length() == 13 && sCode.startsWith("210")) {
-                    // barcode of a weigth product
-                    incProductByCodePrice(sCode.substring(0, 7), Double.parseDouble(sCode.substring(7, 12)) / 100);
-                */
-                // added by janar153 @ 24.12.2013 to add scale barcode support
-// JG 27 Apr 2014 - missing bracket enclosures                } else if((sCode.length() == 13) && sCode.startsWith("2") || sCode.startsWith("02")) {
-                } else if((sCode.length() == 13) && (sCode.startsWith("2") || sCode.startsWith("02"))) {                   
-                    try {
-                        ProductInfoExt oProduct = dlSales.getProductInfoByCode(sCode);
-                        if(oProduct == null) {
-                            Toolkit.getDefaultToolkit().beep();
-                            new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.noproduct")).show(this);
-                            stateToZero();
-                } else {
-                            // set product properties that they can be used later in oPOS resources
-                            oProduct.setProperty("product.barcode", sCode);
-                            // get product base from barcode
-                            double dPriceSell = oProduct.getPriceSell(); // default price for product
-                            double weight = 1.0; // used if barcode includes weight
-                            
-                            String sVariableTypePrefix = sCode.substring(0, 2);
-                            String sVariableNum = sCode.substring(8, 12);
-                            
-                            if(sVariableTypePrefix.equals("20")) {
-                                dPriceSell = Double.parseDouble(sVariableNum) / 100; // price with two decimals
-                            } 
-                            else if (sVariableTypePrefix.equals("21")) {
-                                dPriceSell = Double.parseDouble(sVariableNum) / 10; //price with one decimal
-                            } 
-                            else if (sVariableTypePrefix.equals("22")) {
-                                dPriceSell = Double.parseDouble(sVariableNum); //price with no decimals
-                            } 
-                            else if (sVariableTypePrefix.equals("23")) {
-                                weight = Double.parseDouble(sVariableNum) / 1000; //weight in kg with three decimals (eg. 1,234 kg)
-                            } 
-                            else if (sVariableTypePrefix.equals("24")) {
-                                weight = Double.parseDouble(sVariableNum) / 100; //weight in kg with two decimals (eg. 12,34 kg)
-                            } 
-                            else if (sVariableTypePrefix.equals("25")) {
-                                weight = Double.parseDouble(sVariableNum) / 10; //weight in kg with one decimal (eg. 123,4 kg)
-                            } 
-                            else if(sVariableTypePrefix.equals("28")) {
-                                sVariableNum = sCode.substring(7, 12);
-                                dPriceSell = Double.parseDouble(sVariableNum) / 100; // price with two decimals
-                            }
-                            
-                            if((sVariableTypePrefix.equals("20")) || (sVariableTypePrefix.equals("21")) || (sVariableTypePrefix.equals("22"))) {
-                                // price in barcode includes tax, so remove tax  from sPriceSell
-                                TaxInfo tax = taxeslogic.getTaxInfo(oProduct.getTaxCategoryID(), m_oTicket.getCustomer());
-                                dPriceSell /= (1.0 + tax.getRate());
-                                oProduct.setProperty("product.price", Double.toString(dPriceSell));
-                            } else if((sVariableTypePrefix.equals("23")) || (sVariableTypePrefix.equals("24")) || (sVariableTypePrefix.equals("25"))) {
-                                oProduct.setProperty("product.weight", Double.toString(weight)); 
-                            } else if((sVariableTypePrefix.equals("28"))) {
-                                // price in barcode includes tax, so remove tax  from sPriceSell
-                                TaxInfo tax = taxeslogic.getTaxInfo(oProduct.getTaxCategoryID(), m_oTicket.getCustomer());
-                                dPriceSell /= (1.0 + tax.getRate());
-                                oProduct.setProperty("product.price", Double.toString(dPriceSell));
-                                weight = -1.0;
-                            }
-                            
-                            if(m_jaddtax.isSelected()) {
-                                TaxInfo tax = taxeslogic.getTaxInfo(oProduct.getTaxCategoryID(), m_oTicket.getCustomer());
-                                addTicketLine(oProduct, weight, dPriceSell / (1.0 + tax.getRate()));
-                            } else {
-                                addTicketLine(oProduct, weight, dPriceSell);
-                            }
-                            
-                        }
-                    } catch(BasicException eData) {
-                        stateToZero();
-                        new MessageInf(eData).show(this);
-                    }
-                } else {
-                    incProductByCode(sCode);
-                }
-            } else {
-                Toolkit.getDefaultToolkit().beep();
-            }
-        } else {
-            // otro caracter
-            // Esto es para el codigo de barras...
-            m_sBarcode.append(cTrans);
-
-            // Esto es para el los productos normales...
-            if (cTrans == '\u007f') { 
-                stateToZero();
-
-            } else if ((cTrans == '0') && (m_iNumberStatus == NUMBER_INPUTZERO)) {
-                m_jPrice.setText("0");
-            } else if ((cTrans == '1' || cTrans == '2' || cTrans == '3' || cTrans == '4' || cTrans == '5' || cTrans == '6' || cTrans == '7' || cTrans == '8' || cTrans == '9') && (m_iNumberStatus == NUMBER_INPUTZERO)) {
-                // Un numero entero - an integer
-                if (!priceWith00){
-                    m_jPrice.setText(Character.toString(cTrans));
-                }else{ 
-                    m_jPrice.setText(setTempjPrice(Character.toString(cTrans)));  
-                }
-                
-                
-                m_iNumberStatus = NUMBER_INPUTINT;
-                m_iNumberStatusInput = NUMBERVALID;
-            } else if ((cTrans == '0' || cTrans == '1' || cTrans == '2' || cTrans == '3' || cTrans == '4' || cTrans == '5' || cTrans == '6' || cTrans == '7' || cTrans == '8' || cTrans == '9') && (m_iNumberStatus == NUMBER_INPUTINT)) {
-                // Un numero entero - an integer
-                if (!priceWith00){
-                    m_jPrice.setText(m_jPrice.getText() + cTrans);
-                }else{ 
-                   m_jPrice.setText(setTempjPrice( m_jPrice.getText() + cTrans));  
-                }
-
-
-            } else if (cTrans == '.' && m_iNumberStatus == NUMBER_INPUTZERO && !priceWith00) {
-                m_jPrice.setText("0.");
-                m_iNumberStatus = NUMBER_INPUTZERODEC;
-            } else if (cTrans == '.' && m_iNumberStatus == NUMBER_INPUTZERO) {
-                m_jPrice.setText("");
-                m_iNumberStatus = NUMBER_INPUTZERO;
-            } else if (cTrans == '.' && m_iNumberStatus == NUMBER_INPUTINT && !priceWith00) {
-                m_jPrice.setText(m_jPrice.getText() + ".");
-                m_iNumberStatus = NUMBER_INPUTDEC;
-            } else if (cTrans == '.' && m_iNumberStatus == NUMBER_INPUTINT) {
-                if (!priceWith00){
-                    m_jPrice.setText(m_jPrice.getText() + "00");
-                }else{ 
-                   m_jPrice.setText(setTempjPrice( m_jPrice.getText() + "00"));  
-                }                
-
-                m_iNumberStatus = NUMBER_INPUTINT;
-
-            } else if ((cTrans == '0') && (m_iNumberStatus == NUMBER_INPUTZERODEC || m_iNumberStatus == NUMBER_INPUTDEC)) {
-                // Un numero decimal - a decimal number
-
-                if (!priceWith00){
-                    m_jPrice.setText(m_jPrice.getText() + cTrans);
-                }else{ 
-                    m_jPrice.setText(setTempjPrice( m_jPrice.getText() + cTrans)); 
-                }                
-                 
-                //
-            } else if ((cTrans == '1' || cTrans == '2' || cTrans == '3' || cTrans == '4' || cTrans == '5' || cTrans == '6' || cTrans == '7' || cTrans == '8' || cTrans == '9') && (m_iNumberStatus == NUMBER_INPUTZERODEC || m_iNumberStatus == NUMBER_INPUTDEC)) {
-                // Un numero decimal- a decimal number
-                m_jPrice.setText(m_jPrice.getText() + cTrans);
-                m_iNumberStatus = NUMBER_INPUTDEC;
-                m_iNumberStatusInput = NUMBERVALID;
-
-            } else if (cTrans == '*' && (m_iNumberStatus == NUMBER_INPUTINT || m_iNumberStatus == NUMBER_INPUTDEC)) {
-                m_jPor.setText("x");
-                m_iNumberStatus = NUMBER_PORZERO;
-            } else if (cTrans == '*' && (m_iNumberStatus == NUMBER_INPUTZERO || m_iNumberStatus == NUMBER_INPUTZERODEC)) {
-                m_jPrice.setText("0");
-                m_jPor.setText("x");
-                m_iNumberStatus = NUMBER_PORZERO;
-
-            } else if ((cTrans == '0') && (m_iNumberStatus == NUMBER_PORZERO)) {
-                m_jPor.setText("x0");
-            } else if ((cTrans == '1' || cTrans == '2' || cTrans == '3' || cTrans == '4' || cTrans == '5' || cTrans == '6' || cTrans == '7' || cTrans == '8' || cTrans == '9') && (m_iNumberStatus == NUMBER_PORZERO)) {
-                // Un numero entero
-                m_jPor.setText("x" + Character.toString(cTrans));
-                m_iNumberStatus = NUMBER_PORINT;
-                m_iNumberStatusPor = NUMBERVALID;
-            } else if ((cTrans == '0' || cTrans == '1' || cTrans == '2' || cTrans == '3' || cTrans == '4' || cTrans == '5' || cTrans == '6' || cTrans == '7' || cTrans == '8' || cTrans == '9') && (m_iNumberStatus == NUMBER_PORINT)) {
-                // Un numero entero
-                m_jPor.setText(m_jPor.getText() + cTrans);
-
-            } else if (cTrans == '.' && m_iNumberStatus == NUMBER_PORZERO && !priceWith00) {
-                m_jPor.setText("x0.");
-                m_iNumberStatus = NUMBER_PORZERODEC;
-            } else if (cTrans == '.' && m_iNumberStatus == NUMBER_PORZERO) {
-                m_jPor.setText("x");
-                m_iNumberStatus = NUMBERVALID;
-            } else if (cTrans == '.' && m_iNumberStatus == NUMBER_PORINT && !priceWith00) {
-                m_jPor.setText(m_jPor.getText() + ".");
-                m_iNumberStatus = NUMBER_PORDEC;
-            } else if (cTrans == '.' && m_iNumberStatus == NUMBER_PORINT) {
-                m_jPor.setText(m_jPor.getText() + "00");
-                m_iNumberStatus = NUMBERVALID;
-
-            } else if ((cTrans == '0') && (m_iNumberStatus == NUMBER_PORZERODEC || m_iNumberStatus == NUMBER_PORDEC)) {
-                // Un numero decimal
-                m_jPor.setText(m_jPor.getText() + cTrans);
-            } else if ((cTrans == '1' || cTrans == '2' || cTrans == '3' || cTrans == '4' || cTrans == '5' || cTrans == '6' || cTrans == '7' || cTrans == '8' || cTrans == '9') 
-                    && (m_iNumberStatus == NUMBER_PORZERODEC || m_iNumberStatus == NUMBER_PORDEC)) {
-                // Un numero decimal
-                m_jPor.setText(m_jPor.getText() + cTrans);
-                m_iNumberStatus = NUMBER_PORDEC;
-                m_iNumberStatusPor = NUMBERVALID;
-
-            
-            } else if (cTrans == '\u00a7'   
-                    && m_iNumberStatusInput == NUMBERVALID && m_iNumberStatusPor == NUMBERZERO) {
-                // Scale button pressed and a number typed as a price
-                if (m_App.getDeviceScale().existsScale() && m_App.getAppUserView().getUser().hasPermission("sales.EditLines")) {
-                    try {
-                        Double value = m_App.getDeviceScale().readWeight();
-                        if (value != null) {
-                            ProductInfoExt product = getInputProduct();
-                            addTicketLine(product, value, product.getPriceSell());
-                        }
-                    } catch (ScaleException e) {
-                        Toolkit.getDefaultToolkit().beep();
-                        new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.noweight"), e).show(this);           
-                        stateToZero(); 
-                    }
-                } else {
-                    // No existe la balanza;
-                    Toolkit.getDefaultToolkit().beep();
-                }
-            } else if (cTrans == '\u00a7' 
-                    && m_iNumberStatusInput == NUMBERZERO && m_iNumberStatusPor == NUMBERZERO) {
-                // Scale button pressed and no number typed.
-                int i = m_ticketlines.getSelectedIndex();
-                if (i < 0){
-                    Toolkit.getDefaultToolkit().beep();
-                } else if (m_App.getDeviceScale().existsScale()) {
-                    try {
-                        Double value = m_App.getDeviceScale().readWeight();
-                        if (value != null) {
-                            TicketLineInfo newline = new TicketLineInfo(m_oTicket.getLine(i));
-                            newline.setMultiply(value);
-                            newline.setPrice(Math.abs(newline.getPrice()));
-                            paintTicketLine(i, newline);
-                        }
-                    } catch (ScaleException e) {
-                        // Error de pesada.
-                        Toolkit.getDefaultToolkit().beep();
-                        new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.noweight"), e).show(this);           
-                        stateToZero(); 
-                    }
-                } else {
-                    // No existe la balanza;
-                    Toolkit.getDefaultToolkit().beep();
-                }      
-                
-            // Add one product more to the selected line
-            } else if (cTrans == '+' 
-                    && m_iNumberStatusInput == NUMBERZERO && m_iNumberStatusPor == NUMBERZERO) {
-                int i = m_ticketlines.getSelectedIndex();
-                if (i < 0){
-                    Toolkit.getDefaultToolkit().beep();
-                } else {
-                    TicketLineInfo newline = new TicketLineInfo(m_oTicket.getLine(i));
-                    //If it's a refund + button means one unit less
-                    if (m_oTicket.getTicketType() == TicketInfo.RECEIPT_REFUND){
-                        newline.setMultiply(newline.getMultiply() - 1.0);
-                        paintTicketLine(i, newline);                   
-                    }
-                    else {
-                        // add one unit to the selected line
-                        newline.setMultiply(newline.getMultiply() + 1.0);
-                        paintTicketLine(i, newline); 
-                    }
-                }
-
-            // Delete one product of the selected line
-            } else if (cTrans == '-' 
-                    && m_iNumberStatusInput == NUMBERZERO && m_iNumberStatusPor == NUMBERZERO
-                    && m_App.getAppUserView().getUser().hasPermission("sales.EditLines")) {
-                
-                int i = m_ticketlines.getSelectedIndex();
-                if (i < 0){
-                    Toolkit.getDefaultToolkit().beep();
-                } else {
-                    TicketLineInfo newline = new TicketLineInfo(m_oTicket.getLine(i));
-                    //If it's a refund - button means one unit more
-                    if (m_oTicket.getTicketType() == TicketInfo.RECEIPT_REFUND){
-                        newline.setMultiply(newline.getMultiply() + 1.0);
-                        if (newline.getMultiply() >= 0) {
-                            removeTicketLine(i);
-                        } else {
-                            paintTicketLine(i, newline);
-                        }
-                    } else {
-                        // substract one unit to the selected line
-                        newline.setMultiply(newline.getMultiply() - 1.0);
-                        if (newline.getMultiply() <= 0.0) {                   
-                            removeTicketLine(i); // elimino la linea
-                        } else {
-                            paintTicketLine(i, newline);                   
-                        }
-                    }
-                }
-
-            // Set n products to the selected line
-            } else if (cTrans == '+' 
-                    && m_iNumberStatusInput == NUMBERZERO && m_iNumberStatusPor == NUMBERVALID) {
-                int i = m_ticketlines.getSelectedIndex();
-                if (i < 0){
-                    Toolkit.getDefaultToolkit().beep();
-                } else {
-                    double dPor = getPorValue();
-                    TicketLineInfo newline = new TicketLineInfo(m_oTicket.getLine(i)); 
-                    if (m_oTicket.getTicketType() == TicketInfo.RECEIPT_REFUND) {
-                        newline.setMultiply(-dPor);
-                        newline.setPrice(Math.abs(newline.getPrice()));
-                        paintTicketLine(i, newline);                
-                    } else {
-                        newline.setMultiply(dPor);
-                        newline.setPrice(Math.abs(newline.getPrice()));
-                        paintTicketLine(i, newline);
-                    }
-                }
-
-            // Set n negative products to the selected line
-            } else if (cTrans == '-' 
-                    && m_iNumberStatusInput == NUMBERZERO && m_iNumberStatusPor == NUMBERVALID
-                    && m_App.getAppUserView().getUser().hasPermission("sales.EditLines")) {
-                
-                int i = m_ticketlines.getSelectedIndex();
-                if (i < 0){
-                    Toolkit.getDefaultToolkit().beep();
-                } else {
-                    double dPor = getPorValue();
-                    TicketLineInfo newline = new TicketLineInfo(m_oTicket.getLine(i));
-                    if (m_oTicket.getTicketType() == TicketInfo.RECEIPT_NORMAL) {
-                        newline.setMultiply(dPor);
-                        newline.setPrice(-Math.abs(newline.getPrice()));
-                        paintTicketLine(i, newline);
-                    }           
-                }
-
-            // Anadimos 1 producto
-            } else if (cTrans == '+' 
-                    && m_iNumberStatusInput == NUMBERVALID && m_iNumberStatusPor == NUMBERZERO
-                    && m_App.getAppUserView().getUser().hasPermission("sales.EditLines")) {
-                ProductInfoExt product = getInputProduct();
-                addTicketLine(product, 1.0, product.getPriceSell());
-// JG May 2014 - Allow line free entry amendment
-                m_jEditLine.doClick();
-            // Anadimos 1 producto con precio negativo
-            } else if (cTrans == '-' 
-                    && m_iNumberStatusInput == NUMBERVALID && m_iNumberStatusPor == NUMBERZERO
-                    && m_App.getAppUserView().getUser().hasPermission("sales.EditLines")) {
-                ProductInfoExt product = getInputProduct();
-                addTicketLine(product, 1.0, -product.getPriceSell());
-
-            // Anadimos n productos
-            } else if (cTrans == '+' 
-                    && m_iNumberStatusInput == NUMBERVALID && m_iNumberStatusPor == NUMBERVALID
-                    && m_App.getAppUserView().getUser().hasPermission("sales.EditLines")) {
-                ProductInfoExt product = getInputProduct();
-                addTicketLine(product, getPorValue(), product.getPriceSell());
-
-            // Anadimos n productos con precio negativo ?
-            } else if (cTrans == '-' 
-                    && m_iNumberStatusInput == NUMBERVALID && m_iNumberStatusPor == NUMBERVALID
-                    && m_App.getAppUserView().getUser().hasPermission("sales.EditLines")) {
-                ProductInfoExt product = getInputProduct();
-                addTicketLine(product, getPorValue(), -product.getPriceSell());
-
-            // Totals() Igual;
-            } else if (cTrans == ' ' || cTrans == '=') {
-                if (m_oTicket.getLinesCount() > 0) {
-                    
-                    if (closeTicket(m_oTicket, m_oTicketExt)) {
-                        // Ends edition of current receipt
-                        m_ticketsbag.deleteTicket();  
-                        
-//added by JDL Autologoff after sales            
-            String autoLogoff = (m_App.getProperties().getProperty("till.autoLogoff"));
-            if (autoLogoff != null){               
-                if (autoLogoff.equals("true")){                    
-                   if ("restaurant".equals(m_App.getProperties().getProperty("machine.ticketsbag"))&&
-                           ("true".equals(m_App.getProperties().getProperty("till.autoLogoffrestaurant")))){
-                        deactivate();
-                        setActiveTicket(null, null); 
-                   }else {
-                        ((JRootApp)m_App).closeAppView();   
-                         }    
-                }                   
-            };                       
-                    } else {
-                        // repaint current ticket
-                        refreshTicket();
-                    }
-                } else {
-                    Toolkit.getDefaultToolkit().beep();
-                }
-            }
-        }
-    }
     
     private boolean closeTicket(TicketInfo ticket, Object ticketext) {
         if (listener  != null) {
@@ -1758,7 +1347,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
             script.put("taxeslogic", taxeslogic);             
             script.put("user", m_App.getAppUserView().getUser());
             script.put("sales", this);
-            script.put("taxesinc",m_jaddtax.isSelected());
+           // script.put("taxesinc",m_jaddtax.isSelected());
             script.put("warranty",warrantyPrint);
             script.put("pickupid",getPickupString(ticket));
 
@@ -1793,6 +1382,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         jButton1 = new javax.swing.JButton();
         btnCustomer = new javax.swing.JButton();
         btnSplit = new javax.swing.JButton();
+        btnSplit1 = new javax.swing.JButton();
         m_jPanelScripts = new javax.swing.JPanel();
         m_jButtonsExt = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -1801,14 +1391,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         j_btnKitchenPrt = new javax.swing.JButton();
         m_jPanelBag = new javax.swing.JPanel();
         m_jPanTicket = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        m_jUp = new javax.swing.JButton();
-        m_jDown = new javax.swing.JButton();
-        m_jDelete = new javax.swing.JButton();
-        m_jList = new javax.swing.JButton();
-        m_jEditLine = new javax.swing.JButton();
-        jEditAttributes = new javax.swing.JButton();
         m_jPanelCentral = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         m_jTicketId = new javax.swing.JLabel();
@@ -1819,16 +1401,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jSubtotalEuros = new javax.swing.JLabel();
         m_jTaxesEuros = new javax.swing.JLabel();
         m_jTotalEuros = new javax.swing.JLabel();
-        m_jContEntries = new javax.swing.JPanel();
-        m_jPanEntries = new javax.swing.JPanel();
-        m_jNumberKeys = new com.openbravo.beans.JNumberKeys();
-        jPanel9 = new javax.swing.JPanel();
-        m_jPrice = new javax.swing.JLabel();
-        m_jPor = new javax.swing.JLabel();
-        m_jEnter = new javax.swing.JButton();
-        m_jTax = new javax.swing.JComboBox();
-        m_jaddtax = new javax.swing.JToggleButton();
-        m_jKeyFactory = new javax.swing.JTextField();
         catcontainer = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 204, 153));
@@ -1868,7 +1440,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
             }
         });
 
-        btnSplit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/sale_split_sml.png"))); // NOI18N
+        btnSplit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/sale.png"))); // NOI18N
         btnSplit.setToolTipText("Split Sale");
         btnSplit.setFocusPainted(false);
         btnSplit.setFocusable(false);
@@ -1883,6 +1455,21 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
             }
         });
 
+        btnSplit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/viewmag-.png"))); // NOI18N
+        btnSplit1.setToolTipText("Split Sale");
+        btnSplit1.setFocusPainted(false);
+        btnSplit1.setFocusable(false);
+        btnSplit1.setMargin(new java.awt.Insets(0, 4, 0, 4));
+        btnSplit1.setMaximumSize(new java.awt.Dimension(50, 40));
+        btnSplit1.setMinimumSize(new java.awt.Dimension(50, 40));
+        btnSplit1.setPreferredSize(new java.awt.Dimension(50, 40));
+        btnSplit1.setRequestFocusEnabled(false);
+        btnSplit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSplit1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout m_jButtonsLayout = new javax.swing.GroupLayout(m_jButtons);
         m_jButtons.setLayout(m_jButtonsLayout);
         m_jButtonsLayout.setHorizontalGroup(
@@ -1893,6 +1480,8 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSplit1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSplit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1900,11 +1489,12 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
             m_jButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(m_jButtonsLayout.createSequentialGroup()
                 .addGap(5, 5, 5)
-                .addGroup(m_jButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSplit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5))
+                .addGroup(m_jButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSplit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSplit1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         m_jOptions.add(m_jButtons, java.awt.BorderLayout.LINE_START);
@@ -1976,113 +1566,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jPanTicket.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         m_jPanTicket.setLayout(new java.awt.BorderLayout());
 
-        jPanel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jPanel5.setPreferredSize(new java.awt.Dimension(60, 200));
-        jPanel5.setLayout(new java.awt.BorderLayout());
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5));
-        jPanel2.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
-
-        m_jUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/1uparrow.png"))); // NOI18N
-        m_jUp.setToolTipText("Scroll Up a Line");
-        m_jUp.setFocusPainted(false);
-        m_jUp.setFocusable(false);
-        m_jUp.setMargin(new java.awt.Insets(8, 14, 8, 14));
-        m_jUp.setMaximumSize(new java.awt.Dimension(42, 36));
-        m_jUp.setMinimumSize(new java.awt.Dimension(42, 36));
-        m_jUp.setPreferredSize(new java.awt.Dimension(50, 36));
-        m_jUp.setRequestFocusEnabled(false);
-        m_jUp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jUpActionPerformed(evt);
-            }
-        });
-        jPanel2.add(m_jUp);
-
-        m_jDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/1downarrow.png"))); // NOI18N
-        m_jDown.setToolTipText("Scroll Down a Line");
-        m_jDown.setFocusPainted(false);
-        m_jDown.setFocusable(false);
-        m_jDown.setMargin(new java.awt.Insets(8, 14, 8, 14));
-        m_jDown.setMaximumSize(new java.awt.Dimension(42, 36));
-        m_jDown.setMinimumSize(new java.awt.Dimension(42, 36));
-        m_jDown.setPreferredSize(new java.awt.Dimension(50, 36));
-        m_jDown.setRequestFocusEnabled(false);
-        m_jDown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jDownActionPerformed(evt);
-            }
-        });
-        jPanel2.add(m_jDown);
-
-        m_jDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/editdelete.png"))); // NOI18N
-        m_jDelete.setToolTipText("Remove Line");
-        m_jDelete.setFocusPainted(false);
-        m_jDelete.setFocusable(false);
-        m_jDelete.setMargin(new java.awt.Insets(8, 14, 8, 14));
-        m_jDelete.setMaximumSize(new java.awt.Dimension(42, 36));
-        m_jDelete.setMinimumSize(new java.awt.Dimension(42, 36));
-        m_jDelete.setPreferredSize(new java.awt.Dimension(50, 36));
-        m_jDelete.setRequestFocusEnabled(false);
-        m_jDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jDeleteActionPerformed(evt);
-            }
-        });
-        jPanel2.add(m_jDelete);
-
-        m_jList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/search32.png"))); // NOI18N
-        m_jList.setToolTipText("Product Search");
-        m_jList.setFocusPainted(false);
-        m_jList.setFocusable(false);
-        m_jList.setMargin(new java.awt.Insets(8, 14, 8, 14));
-        m_jList.setMaximumSize(new java.awt.Dimension(42, 36));
-        m_jList.setMinimumSize(new java.awt.Dimension(42, 36));
-        m_jList.setPreferredSize(new java.awt.Dimension(50, 36));
-        m_jList.setRequestFocusEnabled(false);
-        m_jList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jListActionPerformed(evt);
-            }
-        });
-        jPanel2.add(m_jList);
-
-        m_jEditLine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/sale_editline.png"))); // NOI18N
-        m_jEditLine.setToolTipText("Edit Line");
-        m_jEditLine.setFocusPainted(false);
-        m_jEditLine.setFocusable(false);
-        m_jEditLine.setMargin(new java.awt.Insets(8, 14, 8, 14));
-        m_jEditLine.setMaximumSize(new java.awt.Dimension(42, 36));
-        m_jEditLine.setMinimumSize(new java.awt.Dimension(42, 36));
-        m_jEditLine.setPreferredSize(new java.awt.Dimension(50, 36));
-        m_jEditLine.setRequestFocusEnabled(false);
-        m_jEditLine.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jEditLineActionPerformed(evt);
-            }
-        });
-        jPanel2.add(m_jEditLine);
-
-        jEditAttributes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/attributes.png"))); // NOI18N
-        jEditAttributes.setToolTipText("Choose Attributes");
-        jEditAttributes.setFocusPainted(false);
-        jEditAttributes.setFocusable(false);
-        jEditAttributes.setMargin(new java.awt.Insets(8, 14, 8, 14));
-        jEditAttributes.setMaximumSize(new java.awt.Dimension(42, 36));
-        jEditAttributes.setMinimumSize(new java.awt.Dimension(42, 36));
-        jEditAttributes.setPreferredSize(new java.awt.Dimension(50, 36));
-        jEditAttributes.setRequestFocusEnabled(false);
-        jEditAttributes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jEditAttributesActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jEditAttributes);
-
-        jPanel5.add(jPanel2, java.awt.BorderLayout.NORTH);
-
-        m_jPanTicket.add(jPanel5, java.awt.BorderLayout.LINE_END);
-
         m_jPanelCentral.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         m_jPanelCentral.setPreferredSize(new java.awt.Dimension(450, 240));
         m_jPanelCentral.setLayout(new java.awt.BorderLayout());
@@ -2120,9 +1603,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jLblTotalEuros1.setText(AppLocal.getIntString("label.totalcash")); // NOI18N
         m_jPanTotals.add(m_jLblTotalEuros1);
 
-        m_jSubtotalEuros.setBackground(m_jEditLine.getBackground());
         m_jSubtotalEuros.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        m_jSubtotalEuros.setForeground(m_jEditLine.getForeground());
         m_jSubtotalEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jSubtotalEuros.setLabelFor(m_jSubtotalEuros);
         m_jSubtotalEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
@@ -2133,9 +1614,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jSubtotalEuros.setRequestFocusEnabled(false);
         m_jPanTotals.add(m_jSubtotalEuros);
 
-        m_jTaxesEuros.setBackground(m_jEditLine.getBackground());
         m_jTaxesEuros.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        m_jTaxesEuros.setForeground(m_jEditLine.getForeground());
         m_jTaxesEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jTaxesEuros.setLabelFor(m_jTaxesEuros);
         m_jTaxesEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
@@ -2146,9 +1625,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jTaxesEuros.setRequestFocusEnabled(false);
         m_jPanTotals.add(m_jTaxesEuros);
 
-        m_jTotalEuros.setBackground(m_jEditLine.getBackground());
         m_jTotalEuros.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        m_jTotalEuros.setForeground(m_jEditLine.getForeground());
         m_jTotalEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jTotalEuros.setLabelFor(m_jTotalEuros);
         m_jTotalEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
@@ -2167,120 +1644,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
 
         m_jPanContainer.add(m_jPanTicket, java.awt.BorderLayout.CENTER);
 
-        m_jContEntries.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        m_jContEntries.setLayout(new java.awt.BorderLayout());
-
-        m_jPanEntries.setLayout(new javax.swing.BoxLayout(m_jPanEntries, javax.swing.BoxLayout.Y_AXIS));
-
-        m_jNumberKeys.setMinimumSize(new java.awt.Dimension(200, 200));
-        m_jNumberKeys.setPreferredSize(new java.awt.Dimension(250, 250));
-        m_jNumberKeys.addJNumberEventListener(new com.openbravo.beans.JNumberEventListener() {
-            public void keyPerformed(com.openbravo.beans.JNumberEvent evt) {
-                m_jNumberKeysKeyPerformed(evt);
-            }
-        });
-        m_jPanEntries.add(m_jNumberKeys);
-
-        jPanel9.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        jPanel9.setLayout(new java.awt.GridBagLayout());
-
-        m_jPrice.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        m_jPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        m_jPrice.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
-        m_jPrice.setOpaque(true);
-        m_jPrice.setPreferredSize(new java.awt.Dimension(100, 25));
-        m_jPrice.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        jPanel9.add(m_jPrice, gridBagConstraints);
-
-        m_jPor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        m_jPor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        m_jPor.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
-        m_jPor.setOpaque(true);
-        m_jPor.setPreferredSize(new java.awt.Dimension(22, 25));
-        m_jPor.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        jPanel9.add(m_jPor, gridBagConstraints);
-
-        m_jEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/barcode.png"))); // NOI18N
-        m_jEnter.setToolTipText("Get Barcode");
-        m_jEnter.setFocusPainted(false);
-        m_jEnter.setFocusable(false);
-        m_jEnter.setRequestFocusEnabled(false);
-        m_jEnter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jEnterActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        jPanel9.add(m_jEnter, gridBagConstraints);
-
-        m_jTax.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        m_jTax.setFocusable(false);
-        m_jTax.setPreferredSize(new java.awt.Dimension(28, 25));
-        m_jTax.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        jPanel9.add(m_jTax, gridBagConstraints);
-
-        m_jaddtax.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        m_jaddtax.setText("+");
-        m_jaddtax.setFocusPainted(false);
-        m_jaddtax.setFocusable(false);
-        m_jaddtax.setPreferredSize(new java.awt.Dimension(40, 25));
-        m_jaddtax.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
-        jPanel9.add(m_jaddtax, gridBagConstraints);
-
-        m_jPanEntries.add(jPanel9);
-
-        m_jKeyFactory.setBackground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
-        m_jKeyFactory.setForeground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
-        m_jKeyFactory.setBorder(null);
-        m_jKeyFactory.setCaretColor(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
-        m_jKeyFactory.setPreferredSize(new java.awt.Dimension(1, 1));
-        m_jKeyFactory.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                m_jKeyFactoryKeyTyped(evt);
-            }
-        });
-        m_jPanEntries.add(m_jKeyFactory);
-
-        m_jContEntries.add(m_jPanEntries, java.awt.BorderLayout.NORTH);
-
-        m_jPanContainer.add(m_jContEntries, java.awt.BorderLayout.LINE_END);
-
         catcontainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         catcontainer.setLayout(new java.awt.BorderLayout());
         m_jPanContainer.add(catcontainer, java.awt.BorderLayout.SOUTH);
@@ -2290,77 +1653,9 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
 
     private void m_jbtnScaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jbtnScaleActionPerformed
 
-        stateTransition('\u00a7');
+        //stateTransition('\u00a7');
         
     }//GEN-LAST:event_m_jbtnScaleActionPerformed
-
-    private void m_jEditLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jEditLineActionPerformed
-        int i = m_ticketlines.getSelectedIndex();
-        if (i < 0){
-            Toolkit.getDefaultToolkit().beep(); // no line selected
-        } else {
-            try {
-                TicketLineInfo newline = JProductLineEdit.showMessage(this, m_App, m_oTicket.getLine(i));
-                if (newline != null) {
-                    // line has been modified
-                    paintTicketLine(i, newline);
-                }
-            } catch (BasicException e) {
-                new MessageInf(e).show(this);
-            }
-        }
-
-    }//GEN-LAST:event_m_jEditLineActionPerformed
-
-    private void m_jEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jEnterActionPerformed
-
-        stateTransition('\n');
-
-    }//GEN-LAST:event_m_jEnterActionPerformed
-
-    private void m_jNumberKeysKeyPerformed(com.openbravo.beans.JNumberEvent evt) {//GEN-FIRST:event_m_jNumberKeysKeyPerformed
-
-        stateTransition(evt.getKey());
-    }//GEN-LAST:event_m_jNumberKeysKeyPerformed
-
-    private void m_jKeyFactoryKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_m_jKeyFactoryKeyTyped
-
-        m_jKeyFactory.setText(null);
-        stateTransition(evt.getKeyChar());
-
-    }//GEN-LAST:event_m_jKeyFactoryKeyTyped
-
-    private void m_jDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jDeleteActionPerformed
-
-        int i = m_ticketlines.getSelectedIndex();
-        if (i < 0){
-            Toolkit.getDefaultToolkit().beep(); // No hay ninguna seleccionada
-        } else {               
-            removeTicketLine(i); // elimino la linea           
-        }     
-         
-    }//GEN-LAST:event_m_jDeleteActionPerformed
-
-    private void m_jUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jUpActionPerformed
-        
-        m_ticketlines.selectionUp();
-
-    }//GEN-LAST:event_m_jUpActionPerformed
-
-    private void m_jDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jDownActionPerformed
-
-        m_ticketlines.selectionDown();
-
-    }//GEN-LAST:event_m_jDownActionPerformed
-
-    private void m_jListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jListActionPerformed
-
-        ProductInfoExt prod = JProductFinder.showMessage(JPanelTicket.this, dlSales);    
-        if (prod != null) {
-            buttonTransition(prod);
-        }
-        
-    }//GEN-LAST:event_m_jListActionPerformed
 
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
        if (listener  != null) {
@@ -2391,55 +1686,39 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
 }//GEN-LAST:event_btnCustomerActionPerformed
 
     private void btnSplitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSplitActionPerformed
-
-        if (m_oTicket.getLinesCount() > 0) {
-            ReceiptSplit splitdialog = ReceiptSplit.getDialog(this, dlSystem.getResourceAsXML("Ticket.Line"), dlSales, dlCustomers, taxeslogic);
-            
-            TicketInfo ticket1 = m_oTicket.copyTicket();
-            TicketInfo ticket2 = new TicketInfo();
-            ticket2.setCustomer(m_oTicket.getCustomer());
-            
-            if (splitdialog.showDialog(ticket1, ticket2, m_oTicketExt)) {
-                if (closeTicket(ticket2, m_oTicketExt)) { // already checked  that number of lines > 0                            
-                    setActiveTicket(ticket1, m_oTicketExt);// set result ticket
-// maybe look at returning to table set up after splitting the bill
-
+            if (m_oTicket.getLinesCount() > 0) {
                     
+                    if (closeTicket(m_oTicket, m_oTicketExt)) {
+                        // Ends edition of current receipt
+                        m_ticketsbag.deleteTicket();  
+                        
+//added by JDL Autologoff after sales            
+            String autoLogoff = (m_App.getProperties().getProperty("till.autoLogoff"));
+            if (autoLogoff != null){               
+                if (autoLogoff.equals("true")){                    
+                   if ("restaurant".equals(m_App.getProperties().getProperty("machine.ticketsbag"))&&
+                           ("true".equals(m_App.getProperties().getProperty("till.autoLogoffrestaurant")))){
+                        deactivate();
+                        setActiveTicket(null, null); 
+                   }else {
+                        ((JRootApp)m_App).closeAppView();   
+                         }    
+                }                   
+            };                       
+                    } else {
+                        // repaint current ticket
+                        refreshTicket();
+                    }
+                } else {
+                    Toolkit.getDefaultToolkit().beep();
                 }
-            }
-        }
         
 }//GEN-LAST:event_btnSplitActionPerformed
 
-    private void jEditAttributesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditAttributesActionPerformed
-       if (listener  != null) {
-            listener.stop();
-        } 
-        int i = m_ticketlines.getSelectedIndex();
-        if (i < 0) {
-            Toolkit.getDefaultToolkit().beep(); // no line selected
-        } else {
-            try {
-                TicketLineInfo line = m_oTicket.getLine(i);
-                JProductAttEdit attedit = JProductAttEdit.getAttributesEditor(this, m_App.getSession());
-                attedit.editAttributes(line.getProductAttSetId(), line.getProductAttSetInstId());
-                attedit.setVisible(true);
-                if (attedit.isOK()) {
-                    // The user pressed OK
-                    line.setProductAttSetInstId(attedit.getAttributeSetInst());
-                    line.setProductAttSetInstDesc(attedit.getAttributeSetInstDescription());
-                    paintTicketLine(i, line);
-                }
-            } catch (BasicException ex) {
-                MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotfindattributes"), ex);
-                msg.show(this);
-            }
-        }
-       if (listener  != null){           
-       listener.restart(); 
-       }
-}//GEN-LAST:event_jEditAttributesActionPerformed
-
+    public void Logoff(){
+        
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
 // Show the custmer panel - this does deactivate
@@ -2508,50 +1787,54 @@ m_App.getAppUserView().showTask("com.openbravo.pos.customers.CustomersPanel");
 
     }//GEN-LAST:event_j_btnKitchenPrtActionPerformed
 
+    private void btnSplit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSplit1ActionPerformed
+            int i = m_ticketlines.getSelectedIndex();
+            if (i < 0){
+                
+                    String autoLogoff = (m_App.getProperties().getProperty("till.autoLogoff"));
+            if (autoLogoff != null){               
+                if (autoLogoff.equals("true")){                    
+                   if ("restaurant".equals(m_App.getProperties().getProperty("machine.ticketsbag"))&&
+                           ("true".equals(m_App.getProperties().getProperty("till.autoLogoffrestaurant")))){
+                        deactivate();
+                        setActiveTicket(null, null); 
+                   }else {
+                        ((JRootApp)m_App).closeAppView();   
+                         }    
+                }                   
+            }
+                }else{
+                removeTicketLine(i);
+                }
+    }//GEN-LAST:event_btnSplit1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnSplit;
+    private javax.swing.JButton btnSplit1;
     private javax.swing.JPanel catcontainer;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jEditAttributes;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JButton j_btnKitchenPrt;
     private javax.swing.JButton jbtnMooring;
     private javax.swing.JPanel m_jButtons;
     private javax.swing.JPanel m_jButtonsExt;
-    private javax.swing.JPanel m_jContEntries;
-    private javax.swing.JButton m_jDelete;
-    private javax.swing.JButton m_jDown;
-    private javax.swing.JButton m_jEditLine;
-    private javax.swing.JButton m_jEnter;
-    private javax.swing.JTextField m_jKeyFactory;
     private javax.swing.JLabel m_jLblTotalEuros1;
     private javax.swing.JLabel m_jLblTotalEuros2;
     private javax.swing.JLabel m_jLblTotalEuros3;
-    private javax.swing.JButton m_jList;
-    private com.openbravo.beans.JNumberKeys m_jNumberKeys;
     private javax.swing.JPanel m_jOptions;
     private javax.swing.JPanel m_jPanContainer;
-    private javax.swing.JPanel m_jPanEntries;
     private javax.swing.JPanel m_jPanTicket;
     private javax.swing.JPanel m_jPanTotals;
     private javax.swing.JPanel m_jPanelBag;
     private javax.swing.JPanel m_jPanelCentral;
     private javax.swing.JPanel m_jPanelScripts;
-    private javax.swing.JLabel m_jPor;
-    private javax.swing.JLabel m_jPrice;
     private javax.swing.JLabel m_jSubtotalEuros;
-    private javax.swing.JComboBox m_jTax;
     private javax.swing.JLabel m_jTaxesEuros;
     private javax.swing.JLabel m_jTicketId;
     private javax.swing.JLabel m_jTotalEuros;
-    private javax.swing.JButton m_jUp;
-    private javax.swing.JToggleButton m_jaddtax;
     private javax.swing.JButton m_jbtnScale;
     // End of variables declaration//GEN-END:variables
 
